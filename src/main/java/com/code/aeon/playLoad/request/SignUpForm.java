@@ -1,4 +1,4 @@
-package com.code.aeon.playLoad;
+package com.code.aeon.playLoad.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
