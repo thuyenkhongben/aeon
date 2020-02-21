@@ -17,7 +17,7 @@ public class SignUpForm {
     @NotBlank
     @Size(min = 6 , max = 60)
     @Email
-    private String mail;
+    private String Email;
 
     private Set<String>role;
 
@@ -28,10 +28,10 @@ public class SignUpForm {
     public SignUpForm() {
     }
 
-    public SignUpForm(@NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 5, max = 60) String username, @NotBlank @Size(min = 6, max = 60) @Email String mail, Set<String> role, @NotBlank @Size(min = 6, max = 60) String password) {
+    public SignUpForm(@NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 5, max = 60) String username, @NotBlank @Size(min = 6, max = 60) @Email String Email, Set<String> role, @NotBlank @Size(min = 6, max = 60) String password) {
         this.name = name;
         this.username = username;
-        this.mail = mail;
+        this.Email = Email;
         this.role = role;
         this.password = password;
     }
@@ -52,12 +52,12 @@ public class SignUpForm {
         this.username = username;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setMail(String Email) {
+        this.Email = Email;
     }
 
     public Set<String> getRole() {

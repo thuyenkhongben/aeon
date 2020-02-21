@@ -1,8 +1,6 @@
 package com.code.aeon.model;
 
-import lombok.Data;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.data.annotation.TypeAlias;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -58,6 +56,9 @@ public class User {
         this.password = password;
         this.email = email;
         this.roles = roles;
+    }
+
+    public User(String name, String username, String password, String email, String encode) {
     }
 
     public Long getId() {
