@@ -2,7 +2,6 @@ package com.code.aeon.service;
 
 import com.code.aeon.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.omg.CORBA.Object;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -101,7 +100,7 @@ public class UserPrinciple  implements UserDetails{
         return true;
     }
 
-
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
