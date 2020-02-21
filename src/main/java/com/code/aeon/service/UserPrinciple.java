@@ -24,6 +24,7 @@ public class UserPrinciple  implements UserDetails{
     @JsonIgnore
     private String password;
 
+    @JsonIgnore
     private String email;
 
     private  Collection<? extends GrantedAuthority> authorities;
@@ -100,7 +101,7 @@ public class UserPrinciple  implements UserDetails{
         return true;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
