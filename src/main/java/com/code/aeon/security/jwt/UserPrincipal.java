@@ -1,4 +1,4 @@
-package com.code.aeon.service;
+package com.code.aeon.security.jwt;
 
 import com.code.aeon.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserPrinciple  implements UserDetails{
-    private static  final  long serialVersionUID = 1L;
+public class UserPrincipal implements UserDetails {
 
     private  Long id;
 
@@ -28,7 +27,7 @@ public class UserPrinciple  implements UserDetails{
 
     private  Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id, String name, String username, String password, String email, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String name, String username, String password, String email, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -37,12 +36,12 @@ public class UserPrinciple  implements UserDetails{
         this.authorities = authorities;
     }
 
-    public static UserPrinciple create(User user) {
+    public static UserPrincipal create(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())
         ).collect(Collectors.toList());
 
-        return new UserPrinciple(
+        return new UserPrincipal(
                 user.getId(),
                 user.getName(),
                 user.getUsername(),
@@ -63,7 +62,6 @@ public class UserPrinciple  implements UserDetails{
     public String getEmail() {
         return email;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -105,7 +103,7 @@ public class UserPrinciple  implements UserDetails{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserPrinciple user = (UserPrinciple) o;
+        UserPrincipal user = (UserPrincipal) o;
         return Objects.equals(id, user.id);
     }
     @Override

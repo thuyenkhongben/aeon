@@ -1,6 +1,6 @@
 package com.code.aeon.security.jwt;
 
-import com.code.aeon.service.UserPrinciple;
+
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,30 +13,26 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(JwtProvider.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     @Value("{app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("{app.jwtExpiration}")
-    private int jwtExpiration;
+//    @Value("{app.jwtExpirationInMs}")
+    private int jwtExpirationInMs = 604800000;
 
     public String generateJwtToken(Authentication authentication) {
-        UserPrinciple userPrincipal = (UserPrinciple)  authentication.getPrincipal();
+       UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpiration))
+                .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
-    }
-    public String getUserNameFormJwtToken (String token){
-
-        return Jwts.parser().setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody().getSubject();
-
     }
 
     public boolean validateJwtToken( String authToken){
@@ -56,5 +52,11 @@ public class JwtProvider {
         }
 
         return false;
+    }
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody().getSubject();
     }
 }
